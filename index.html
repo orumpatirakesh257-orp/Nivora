@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nivora Tech | Building the Future</title>
+    
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --bg-dark: #050505;
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --primary-blue: #00d4ff;
+            --accent-gold: #ffd700;
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --transition: all 0.4s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- UTILITIES --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h1, h2, h3 {
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #fff, var(--primary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 4rem;
+            font-size: 1.1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary-blue);
+            color: #000;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
+        }
+
+        .btn-primary:hover {
+            background: #fff;
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-blue);
+            color: var(--primary-blue);
+            margin-left: 15px;
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-blue);
+            color: #000;
+        }
+
+        /* --- SCROLL REVEAL ANIMATION --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            background: rgba(5, 5, 5, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--primary-blue);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary-blue);
+            bottom: -5px;
+            left: 0;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated Background Mesh */
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+            top: -100px;
+            right: -100px;
+            border-radius: 50%;
+            animation: float 10s infinite alternate;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
+            bottom: -100px;
+            left: -100px;
+            border-radius: 50%;
+            animation: float 12s infinite alternate-reverse;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: var(--primary-blue);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+
+        /* --- SERVICES SECTION --- */
+        .services {
+            padding: 100px 0;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            padding: 40px 30px;
+            border-radius: 20px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-blue);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.1);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-gold));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: var(--transition);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .service-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* --- PORTFOLIO SECTION --- */
+        .portfolio {
+            padding: 100px 0;
+            background: linear-gradient(180deg, var(--bg-dark) 0%, #0a0a0a 100%);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            height: 300px;
+            cursor: pointer;
+            group: hover;
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .project-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .project-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 30px;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .project-overlay h3 {
+            color: var(--primary-blue);
+            margin-bottom: 5px;
+        }
+
+        .project-overlay p {
+            color: #fff;
+            font-size: 0.9rem;
+        }
+/* --- PRICING SECTION --- */
+.pricing {
+    padding: 100px 0;
+    background: #060606;
+}
+
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.pricing-card {
+    background: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    padding: 40px 30px;
+    border-radius: 20px;
+    text-align: center;
+    transition: var(--transition);
+    position: relative;
+}
+
+.pricing-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--primary-blue);
+    box-shadow: 0 10px 30px rgba(0, 212, 255, 0.1);
+}
+
+.pricing-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+}
+
+.pricing-card h2 {
+    font-size: 2.5rem;
+    color: var(--primary-blue);
+    margin-bottom: 10px;
+}
+
+.price-desc {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+.pricing-card ul {
+    list-style: none;
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.pricing-card ul li {
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* Highlight (Middle Card) */
+.highlight {
+    border: 1px solid var(--primary-blue);
+    transform: scale(1.05);
+}
+
+.highlight::before {
+    content: 'Best Value';
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: var(--primary-blue);
+    color: #000;
+    font-size: 0.7rem;
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+        /* --- ABOUT SECTION --- */
+        .about {
+            padding: 100px 0;
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .about-text p {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .about-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .stat-item h2 {
+            color: var(--primary-blue);
+            font-size: 2.5rem;
+        }
+
+        .stat-item span {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .about-visual {
+            flex: 1;
+            min-width: 300px;
+            height: 400px;
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .about-visual::after {
+            content: 'NIVORA';
+            font-size: 5rem;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.03);
+            position: absolute;
+            z-index: 0;
+        }
+
+        .floating-icon {
+            font-size: 4rem;
+            color: var(--accent-gold);
+            z-index: 1;
+            animation: float 3s infinite ease-in-out;
+        }
+        /* --- FOUNDER SECTION --- */
+.founder {
+    padding: 100px 0;
+    background: #070707;
+}
+
+.founder-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    flex-wrap: wrap;
+}
+
+.founder-image {
+    flex: 1;
+    min-width: 300px;
+}
+
+.founder-image img {
+    width: 100%;
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+}
+
+.founder-content {
+    flex: 1;
+    min-width: 300px;
+}
+
+.founder-content h3 {
+    font-size: 2rem;
+    margin-bottom: 5px;
+}
+
+.founder-role {
+    color: var(--primary-blue);
+    font-size: 0.9rem;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.founder-content p {
+    color: var(--text-muted);
+    margin-bottom: 15px;
+}
+
+.founder-social {
+    margin: 20px 0;
+}
+
+.founder-social a {
+    margin-right: 15px;
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    transition: var(--transition);
+}
+
+.founder-social a:hover {
+    color: var(--primary-blue);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .founder-wrapper {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+        /* --- WHY CHOOSE US --- */
+        .why-us {
+            padding: 100px 0;
+            background: #080808;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: var(--primary-blue);
+            font-size: 1.5rem;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .feature-item h3 {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .feature-item p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* --- CONTACT SECTION --- */
+        .contact {
+            padding: 100px 0;
+        }
+
+        .contact-wrapper {
+            display: flex;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .info-item {
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-gold);
+        }
+
+        .contact-form {
+            flex: 1.5;
+            min-width: 300px;
+            background: var(--bg-card);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 50px 0 20px;
+            border-top: 1px solid var(--glass-border);
+            background: #020202;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .social-links a {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            margin-left: 20px;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            color: var(--primary-blue);
+        }
+
+        .copyright {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.8rem;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* --- RESPONSIVE DESIGN --- */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                position: fixed;
+                right: -100%;
+                top: 0;
+                height: 100vh;
+                width: 70%;
+                background: #0a0a0a;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: var(--transition);
+                border-left: 1px solid var(--glass-border);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .contact-wrapper {
+                flex-direction: column;
+            }
+        }
+        .price-note {
+
+    color: #ffd700;
+    margin-top: 40px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+.domain-note {
+    padding: 60px 0;
+    text-align: center;
+}
+
+.domain-note h3 {
+    margin-bottom: 15px;
+}
+
+.domain-note p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">NIVORA <span>TECH</span></a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container hero-content reveal">
+            <h1>Building the Future of <br> <span>Digital Experiences</span></h1>
+            <p>We create premium, high-performance websites for modern businesses. Innovation meets luxury in every line of code.</p>
+            <div class="hero-btns">
+                <a href="#contact" class="btn btn-primary">Get Started</a>
+                <a href="#portfolio" class="btn btn-outline">View Portfolio</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">Our Expertise</h2>
+            <p class="section-subtitle">Comprehensive digital solutions tailored for your growth</p>
+            
+            <div class="services-grid">
+                <div class="service-card reveal">
+                    <i class="fas fa-code service-icon"></i>
+                    <h3>Web Development</h3>
+                    <p>Custom websites built with modern frameworks for speed, security, and scalability.</p>
+                </div>
+                <div class="service-card reveal">
+                    <i class="fas fa-paint-brush service-icon"></i>
+                    <h3>UI/UX Design</h3>
+                    <p>Intuitive and aesthetically pleasing interfaces that provide a seamless user journey.</p>
+                </div>
+                <div class="service-card reveal">
+                    <i class="fas fa-calendar-check service-icon"></i>
+                    <h3>Booking Systems</h3>
+                    <p>Automated appointment scheduling and management systems integrated perfectly.</p>
+                </div>
+                <div class="service-card reveal">
+                    <i class="fas fa-briefcase service-icon"></i>
+                    <h3>Business Solutions</h3>
+                    <p>Corporate landing pages and enterprise solutions that elevate your brand image.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <h2 class="section-title">Featured Work</h2>
+            <p class="section-subtitle">A glimpse into our innovative projects</p>
+
+            <div class="portfolio-grid">
+                <!-- Project 1 -->
+                <a href="https://novadine.vercel.app" target="_blank" class="project-card reveal">
+    <img src="restaurant.png" alt="Project 1">
+    <div class="project-overlay">
+        <h3>Restaurant Website</h3>
+        <p>Modern dining experience website</p>
+    </div>
+</a>
+<!--project 2-->
+<a href="https://ironcore-wine.vercel.app" target="_blank" class="project-card reveal">
+    <img src="gym.png" alt="Project 2">
+    <div class="project-overlay">
+        <h3>Iron Core Fitness</h3>
+        <p>Modern Gym website</p>
+        
+    </div>
+</a>
+<!--project 3-->
+<a href="https://saloonshop-wheat.vercel.app/" target="_blank" class="project-card reveal">
+    <img src="saloon.png" alt="Project 3">
+    <div class="project-overlay">
+        <h3>Saloon Website</h3>
+        <p>Modern Salon and Styling</p>
+    </div>
+</a>
+            </div>
+        </div>
+    </section>
+<!-- PRICING / PACKAGES -->
+<!-- PRICING / PACKAGES -->
+<section id="pricing" class="pricing">
+    <div class="container">
+        <h2 class="section-title">Our Packages</h2>
+        <p class="section-subtitle">Clear pricing for every business stage</p>
+
+        <div class="pricing-grid">
+
+            <!-- 7999 -->
+            <div class="pricing-card reveal">
+                <h3>Starter Basic</h3>
+                <h2>₹7,999</h2>
+                <p class="price-desc">Perfect for small businesses</p>
+
+                <ul>
+                    <li>1–4 Pages Website</li>
+                    <li>Contact Form </li>
+                    <li>Modern UI Design</li>
+                    <li>Fully Responsive</li>
+                    <li>Basic SEO setup</li>
+                    <li>1 Revision</li>
+                </ul>
+
+                <a href="#contact" class="btn btn-outline">Choose Plan</a>
+            </div>
+
+            <!-- 10,999 -->
+            <div class="pricing-card reveal">
+                <h3>Starter Plus</h3>
+                <h2>₹10,999</h2>
+                <p class="price-desc">Includes everything in ₹7,999 +</p>
+
+                <ul>
+                    <li><strong>Everything in Starter Basic</strong></li>
+                    <li>+ WhatsApp Integration</li>
+                    <li>+ Google Maps Integration</li>
+                    <li>+ Extra Page Support</li>
+                    <li>+ Website Protection</li>
+                </ul>
+
+                <a href="#contact" class="btn btn-outline">Choose Plan</a>
+            </div>
+
+            <!-- 13999 -->
+            <div class="pricing-card highlight reveal">
+                <h3>Professional</h3>
+                <h2>₹14,999</h2>
+                <p class="price-desc">Includes everything in ₹9,999 +</p>
+
+                <ul>
+                    <li><strong>Everything in Starter Plus</strong></li>
+                    <li>+ Booking System</li>
+                    <li>+ Admin Panel</li>
+                    <li>+ Gallery Section</li>
+                    <li>+ Smooth Animations</li>
+                    <li>+ Interactive UI Elements</li>
+                    <li>+ 2 Revisions</li>
+                </ul>
+
+                <a href="#contact" class="btn btn-primary">Most Popular</a>
+            </div>
+
+            <!-- 17999 -->
+            <div class="pricing-card reveal">
+                <h3>Professional Premium</h3>
+                <h2>₹17,999</h2>
+                <p class="price-desc">Includes everything in ₹13,999 +</p>
+
+                <ul>
+                    <li><strong>Everything in Professional</strong></li>
+                    <li>+ Premium UI/UX Design</li>
+                    <li>+ Advanced Animations</li>
+                    <li>+ Social Media Integration</li>
+                    <li>+ Promotion Video Integration</li>
+                    <li>+ Performance Optimization</li>
+                    <li>+ SEO Optimization</li>
+                    <li>+ 3 Revisions</li>
+                </ul>
+
+                <a href="#contact" class="btn btn-outline">Get Started</a>
+            </div>
+
+            <!-- ENTERPRISE -->
+            <div class="pricing-card reveal">
+                <h3>Enterprise</h3>
+                <h2>₹30,000+</h2>
+                <p class="price-desc">Custom advanced solutions</p>
+
+                <ul>
+                    <li>Unlimited Pages</li>
+                    <li>Advanced UI/UX + Animations</li>
+                    <li>E-commerce / Ordering System</li>
+                    <li>Admin Dashboard</li>
+                    <li>Payment Integration</li>
+                    <li>Priority Support</li>
+                </ul>
+
+                <a href="#contact" class="btn btn-outline">Get Quote</a>
+            </div>
+
+        </div>
+    </div>
+
+    <h2 class="price-note">*Domain & Hosting charged separately</h2>
+</section>
+<section class="domain-note">
+    <div class="container">
+        <h3>Domain & Hosting</h3>
+        <p>
+            Domain and hosting services are not included in the package price.
+            We help you purchase the best domain for your business at actual market price.
+        </p>
+        <p style="color:#00d4ff;">
+            Domain: ₹500 – ₹1500/year (depends on availability)
+        </p>
+    </div>
+</section>
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text reveal">
+                    <h2 class="section-title" style="text-align: left;">Who We Are</h2>
+                    <p>Nivora Tech is a premier digital agency dedicated to transforming brands through technology. We believe that a website is not just a tool, but a powerful asset that defines your business identity.</p>
+                    <p>Our team combines artistic creativity with technical precision to deliver solutions that are fast, secure, and visually stunning.</p>
+                    
+                    
+                    <div class="about-stats">
+                        <div class="stat-item">
+    <h2>Modern</h2>
+    <span>Design Approach</span>
+</div>
+<div class="stat-item">
+    <h2>Fast</h2>
+    <span>Delivery</span>
+</div>
+
+                    </div>
+                </div>
+
+                <div class="about-visual reveal">
+                    <i class="fas fa-laptop-code floating-icon"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- FOUNDER SECTION -->
+<section class="founder">
+    <div class="container">
+        <h2 class="section-title">Meet the Founder</h2>
+        <p class="section-subtitle">The vision behind Nivora Tech</p>
+
+        <div class="founder-wrapper">
+
+            <!-- Founder Image -->
+            <div class="founder-image reveal">
+                <img src="nivoratech.png" alt="Orumpati Rakesh">
+            </div>
+
+            <!-- Founder Content -->
+            <div class="founder-content reveal">
+                <h3>ᴏʀᴜᴍᴘᴀᴛɪ ʀᴀᴋᴇꜱʜ</h3>
+                <span class="founder-role">Founder & Web Developer</span>
+
+                <p>
+                    Orumpati Rakesh is the founder of Nivora Tech, focused on building
+                    high-performance and premium-quality websites for modern businesses.
+                </p>
+
+                <p>
+                    With a strong passion for design and development, he combines creativity
+                    with technical expertise to deliver powerful digital experiences that
+                    help brands grow and stand out.
+                </p>
+
+                <div class="founder-social">
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+
+                <a href="#contact" class="btn btn-primary">Contact Founder</a>
+            </div>
+
+        </div>
+    </div>
+</section>
+    <!-- WHY CHOOSE US -->
+    <section class="why-us">
+        <div class="container">
+            <h2 class="section-title">Why Choose Us</h2>
+            <p class="section-subtitle">We deliver more than just websites</p>
+
+            <div class="features-grid">
+                <div class="feature-item reveal">
+                    <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                    <h3>Fast Performance</h3>
+                    <p>Lightning fast websites optimized for speed.</p>
+                </div>
+
+                <div class="feature-item reveal">
+                    <div class="feature-icon"><i class="fas fa-lock"></i></div>
+                    <h3>Secure</h3>
+                    <p>Top-level security for your business data.</p>
+                </div>
+
+                <div class="feature-item reveal">
+                    <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <h3>Responsive</h3>
+                    <p>Perfect on mobile, tablet, and desktop.</p>
+                </div>
+
+                <div class="feature-item reveal">
+                    <div class="feature-icon"><i class="fas fa-star"></i></div>
+                    <h3>Premium Design</h3>
+                    <p>Luxury UI with modern aesthetics.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <p class="section-subtitle">Let’s build something amazing together</p>
+
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-phone"></i></div>
+                        <p>+91 63032 51346</p>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-envelope"></i></div>
+                        <p>nivoratech08@gmail.com</p>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <p>Chennai, India</p>
+                    </div>
+                </div>
+<div class="contact-form">
+<form onsubmit="event.preventDefault(); sendMail();">
+    
+    <div class="form-group">
+        <input type="text" id="name" placeholder="Your Name" required>
+    </div>
+
+    <div class="form-group">
+        <input type="email" id="email" placeholder="Your Email" required>
+    </div>
+
+    <div class="form-group">
+        <textarea id="message" placeholder="Your Message"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Send Message</button>
+
+</form>
+</div>
+  
+  <!-- ✅ JavaScript goes here (OUTSIDE form, at bottom) -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+  <script>
+  (function(){
+    emailjs.init("UY9qlrWGxyOWwIhe_");
+  })();
+
+  function sendMail() {
+  console.log("Sending...");
+
+  emailjs.send("service_u2n75jz", "template_76m9fll", {
+    name: document.getElementById("name").value,
+    email: document.getElementById("email").value,
+    message: document.getElementById("message").value
+  })
+  .then(function(response) {
+     console.log("SUCCESS", response);
+     alert("Message sent successfully!");
+  }, function(error) {
+     console.log("FAILED", error);
+     alert("Failed to send message");
+  });
+}
+  </script>
+
+
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">NIVORA TECH</div>
+
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+
+            <div class="copyright">
+                © 2025 Nivora Tech. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById("navbar");
+        window.addEventListener("scroll", () => {
+            navbar.classList.toggle("scrolled", window.scrollY > 50);
+        });
+
+        // Mobile menu toggle
+        const menuToggle = document.getElementById("menuToggle");
+        const navLinks = document.getElementById("navLinks");
+
+        menuToggle.addEventListener("click", () => {
+            navLinks.classList.toggle("active");
+        });
+
+        // Scroll reveal animation
+        const reveals = document.querySelectorAll(".reveal");
+
+        window.addEventListener("scroll", () => {
+            reveals.forEach(el => {
+                const windowHeight = window.innerHeight;
+                const elementTop = el.getBoundingClientRect().top;
+
+                if (elementTop < windowHeight - 100) {
+                    el.classList.add("active");
+                }
+            });
+        });
+        
+    </script>
+    
+</body>
+</html>
